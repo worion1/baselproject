@@ -1,0 +1,85 @@
+\documentclass[11pt,reqno]{amsart}
+
+% --- Core Packages ---
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage[letterpaper,margin=1.15in]{geometry}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,
+            linkcolor=blue,
+            citecolor=teal,
+            urlcolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+
+
+\title[Evaluation of the Basel Problem]{The Basel Problem}
+\author{Orion Wilson}
+\address{Department of Mathematics, University of California, Santa Cruz}
+\email{orrwilso@ucsc.edu}
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+% Intro
+\section{Introduction}
+% 
+
+
+% Method 1
+\section{Method 1: The Squeeze Theorem via Trigonometric Polynomials}
+% 
+\subsection{.}
+
+\begin{lemma}\label{lem:sum_bounds}
+For all $n \ge 1$,
+\[
+\sum_{k=1}^n \cot^2 x_k < \frac{(2n+1)^2}{\pi^2} \sum_{k=1}^n \frac{1}{k^2} < \sum_{k=1}^n \csc^2 x_k.
+\]
+\end{lemma}
+\begin{proof}
+Proof to be completed.
+\end{proof}
+
+% Method 2
+\section{Method 2: Fourier Analysis on \texorpdfstring{$L^2[-\pi, \pi]$}{L2[-pi, pi]}}
+% 
+\subsection{.}
+
+% Bonus
+\section{What to call this?}
+% 
+
+\subsection{.}
+
+% References
+\begin{thebibliography}{9}
+
+\end{thebibliography}
+
+\end{document}
