@@ -1,8 +1,9 @@
-\documentclass[11pt,reqno]{amsart}
+\documentclass[11pt,reqno, tikz, border=3mm]{amsart}
 
 % --- Core Packages ---
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{microtype}
+\usepackage{tikz}
 \usepackage{booktabs}
 \usepackage[letterpaper,margin=1.15in]{geometry}
 \usepackage{xcolor}
@@ -28,7 +29,7 @@
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
-
+\renewcommand{\qedsymbol}{\hfill{$W^5$}}
 
 \title[Evaluation of the Basel Problem]{The Basel Problem}
 \author{Orion Wilson}
@@ -53,21 +54,51 @@
 
 % Method 1
 \section{Method 1: The Squeeze Theorem via Trigonometric Polynomials}
-% 
-\subsection{.}
-
-\begin{lemma}\label{lem:sum_bounds}
-For all $n \ge 1$,
-\[
-\sum_{k=1}^n \cot^2 x_k < \frac{(2n+1)^2}{\pi^2} \sum_{k=1}^n \frac{1}{k^2} < \sum_{k=1}^n \csc^2 x_k.
-\]
-\end{lemma}
+Info
+\subsection{Showing that $\sin x < x < \tan x$}
+We want to show that $x$ is bounded below by $\sin x$ and above by $\tan x$ for $x \in (0,\frac{\pi}{2})$.
 \begin{proof}
-Proof to be completed.
+Let x be an angle in radians in quadrant 1 such that $0 < x < \frac{\pi}{2}$. Suppose that a ray of length $1$ has angle $x$. Then $\sin x$ is the vertical side of the right triangle with the unit ray as the hypotenuse. 
+
+The side length of the right triangle inscribed inside the unit circle with hypotenuse length $1$ has vertical side length $\sin x$. So, this right triangle has area $(\frac{1}{2})(1)(\sin x) = \frac{1}{2} \sin x$ using the generic formula for the area of a right triangle. Also, the sector of the unit circle between $0$ and $x$ has arclength $s=(1)(x)=x$, so this sector has area $\frac{1}{2}(1)(x) = \frac{1}{2}x$ using the generic formula for the area of a circular sector. As the interior right triangle is contained within the circular sector, its area must be strictly less than or equal to the area of the sector.
+\begin{align} 
+\frac{1}{2} \sin x &\le \frac{1}{2}x \\
+\sin x &\le x
+\end{align}
+For any angle $x \in (0, \frac{\pi}{2})$, there is always a gap between the straight vertical side length of the right triangle and the curved arclength of the circular sector. Thus, the area of the right triangle is always strictly less than  the area of the sector.
+$$
+\sin x < x
+$$
+Now we must show that $x < \tan x$ for $x \in (0, \frac{\pi}{2})$. Suppose that we wish to form a right triangle of base length $1$ from the origin. The ray with angle $x$ must extend past the unit circle in order to satisfy this condition and the resultant triangle must have vertical side length $h$. Then $\tan x = \frac{\text{opposite}}{\text{adjacent}} = \frac{h}{1} = h$. So $\tan x$ is the vertical side length of this right triangle. The area of this triangle is $\frac{1}{2}(1)(\tan x) = \frac{1}{2}\tan x$. Note that because the base length of this triangle is $1$ and the hypotenuse extends past the unit circle, it fully encloses a strictly larger area than the circular sector. This includes the sector itself and the area outside of the unit circle. So, the area of the outer right triangle must be strictly larger than the area of the circular sector.
+\begin{align}
+ \frac{1}{2}x &< \frac{1}{2}\tan x \\
+ x &< \tan x
+\end{align}
+As  $x > \sin x$ we have, by the transitive property of inequality on real numbers, that $\sin x < x < \tan x$.
+
 \end{proof}
+\subsection{Derivation of $\cot^2x < \frac{1}{x^2} < \csc^2x$}
+From the previous section, we have that 
+$$\sin x < x < \tan x$$
+Rewriting the $\tan x$ term we get
+$$\sin x < x < \frac{\sin x}{\cos x}$$
+As $\sin x$, $x$, and $\tan x$ are all positive functions on $(0, \frac{\pi}{2})$, taking the reciprocal of the entire inequality flips the inequality directions, so we get
+\begin{align}
+\frac{1}{\sin x} > \frac{1}{x} > \frac{\cos x}{\sin x} \\
+\csc x > \frac{1}{x} > \cot x
+\end{align}
+Similarly, as each function is positive on $(0, \frac{\pi}{2})$, squaring the entire inequality does not flip the directions of the inequalities. We can also rewrite the inequality in increasing order again after taking the square.
+\begin{align} 
+\sec^2x > \frac{1}{x^2} > \cot^2x \\
+\cot^2x < \frac{1}{x^2} < \sec^2x
+\end{align}
+This is exactly what we wanted to show.
+
+\subsection{Showing that}
+
 
 % Method 2
-\section{Method 2: Fourier Analysis on \texorpdfstring{$L^2[-\pi, \pi]$}{L2[-pi, pi]}}
+\section{Method 2: }
 % 
 \subsection{.}
 
