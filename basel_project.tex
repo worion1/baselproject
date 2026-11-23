@@ -1,35 +1,33 @@
 \documentclass[11pt,reqno, tikz, border=3mm]{amsart}
-
-% --- Core Packages ---
+\usepackage{etoolbox}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{microtype}
 \usepackage{tikz}
 \usepackage{booktabs}
 \usepackage[letterpaper,margin=1.15in]{geometry}
 \usepackage{xcolor}
+\usepackage{amssymb}
 \usepackage[colorlinks=true,
             linkcolor=blue,
             citecolor=teal,
             urlcolor=blue]{hyperref}
-
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
+\AtEndEnvironment{lemma}{\lemmaqed}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
-
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
-
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
 \renewcommand{\qedsymbol}{\hfill{$W^5$}}
+\newcommand{\lemmaqed}{\hfill{$\square$}}
 
 \title[Evaluation of the Basel Problem]{The Basel Problem}
 \author{Orion Wilson}
@@ -49,12 +47,14 @@
 
 % Intro
 \section{Introduction}
-% 
+
 
 
 % Method 1
 \section{Method 1: The Squeeze Theorem via Trigonometric Polynomials}
 Info
+
+% 1a)
 \subsection{Showing that $\sin x < x < \tan x$}
 We want to show that $x$ is bounded below by $\sin x$ and above by $\tan x$ for $x \in (0,\frac{\pi}{2})$.
 \begin{proof}
@@ -89,12 +89,129 @@ As $\sin x$, $x$, and $\tan x$ are all positive functions on $(0, \frac{\pi}{2})
 \end{align}
 Similarly, as each function is positive on $(0, \frac{\pi}{2})$, squaring the entire inequality does not flip the directions of the inequalities. We can also rewrite the inequality in increasing order again after taking the square.
 \begin{align} 
-\sec^2x > \frac{1}{x^2} > \cot^2x \\
-\cot^2x < \frac{1}{x^2} < \sec^2x
+\csc^2x > \frac{1}{x^2} > \cot^2x \\
+\cot^2x < \frac{1}{x^2} < \csc^2x
 \end{align}
 This is exactly what we wanted to show.
 
-\subsection{Showing that}
+% 1b)
+\subsection{Showing for $x_k = \frac{k\pi}{2n+1}$, $1 \le k \le n$,  that $x_k \in (0, \frac{\pi}{2})$} 
+Define $x_k =  \frac{k\pi}{2n+1}$ for $1 \le k \le n$. Then we want to show that $x_k \in (0, \frac{\pi}{2})$. \\
+
+As $1\le k \le n$, we know that the following holds 
+$$ 0 < \frac{k\pi}{2n+1} \le \frac{n\pi}{2n + 1}$$
+Note that multplying a bigger number, $n$, and a smaller number, $k$, by the same constant $\frac{\pi}{2n+1}$ preserves the inequality. Furthermore, if we make the denominator of $\frac{n\pi}{2n+1}$ greater by subtracting the 1 out, we get a strictly greater number $\frac{n\pi}{2n}$
+$$\frac{n\pi}{2n+1} < \frac{n\pi}{2n} = \frac{\pi}{2}$$
+So chaining these inequalities we have
+$$0 < \frac{k\pi}{2n+1} < \frac{\pi}{2}$$
+As this is the rule for $x_k$, we have shown that $x_k \in (0,\frac{\pi}{2})$.
+
+\subsection{Showing that $\sum^n_{k=1}\cot^2x_k < \frac{(2n+1)^2}{\pi^2}\sum^n_{k=1}\frac{1}{k^2} < \sum^n_{k=1}\csc^2x_k$}
+Recall the relation that we proved in section 2.2
+$$\cot^2x < \frac{1}{x^2} < csc^2x$$
+Replacing $x$ with $x_k$ we have
+$$\cot^2x_k < \frac{1}{x_k^2} < \csc^2 x_k$$
+By expanding the middle term we get
+$$\cot^2x_k < \frac{1}{(\frac{k\pi}{2n+1})^2} < \csc^2 x_k$$
+$$\cot^2x_k < \frac{(2n+1)^2}{(k\pi)^2}< \csc^2 x_k$$
+$$\cot^2x_k < \frac{(2n+1)^2}{\pi^2} \cdot \frac{1}{k^2} < \csc^2 x_k$$
+By applying the summation operation from $k=1$ to $n$ across the entire inequality we get
+$$\sum^n_{k=1} \cot^2x_k < \sum^n_{k=1}\frac{(2n+1)^2}{\pi^2} \cdot \frac{1}{k^2} < \sum^n_{k=1}\csc^2 x_k$$
+And because $\frac{(2n+1)^2}{\pi^2}$ is constant in the sum, the middle term is simplified as
+$$\sum^n_{k=1} \cot^2x_k < \frac{(2n+1)^2}{\pi^2} \sum^n_{k=1} \frac{1}{k^2} < \sum^n_{k=1}\csc^2 x_k$$
+Which is exactly what we wanted to show.
+
+\subsection{Proving that for $n \in \mathbb{N}$, $(\cos x + i \sin x)^n = \cos(nx) + i\sin(nx)$.} 
+\begin{proof}
+We will use DeMoivre's Formula to prove this result, which is given below.
+$$e^{ix}=\cos x + i\sin x$$
+We start by raising both sides of DeMoivre's Formula to the power of $n$.
+$$\left(e^{ix}\right)^n = (\cos x + i\sin x)^n$$
+$$e^{inx} = (\cos x + i\sin x)^n$$
+Making the substitution $x' = xn$ we use DeMoivre's Formula again to get
+$$\cos(x') + i\sin(x') = (\cos x + i\sin x)^n$$
+$$\cos(xn) + i\sin(xn) = (\cos x + i\sin x)^n$$
+$$(\cos x + i\sin x)^n = \cos(xn) + i\sin(xn)$$
+\end{proof}
+
+\subsection{Proving the Binomial Theorem} Recall that the binomial theorem states that for all $n \in \mathbb{N}$
+$$(x+y)^n = \sum^n_{k=0}\binom{n}{k}x^{n-k}y^k$$
+\begin{proof}
+We proceed with proof by induction. Define $\{P(n)\}_{n\in \mathbb{N}}$ indexed by $n$ such that $P(n)$ is defined by the above identity. That is, $P(n)$ is true if and only if the binomial theorem holds for $n$. \\
+We begin by showing that the base case, $P(0)$, is true. 
+\begin{align}
+\sum_{k=0}^0 \binom{0}{k} x^{1-k}y^k &= \binom{0}{0}x^{1-1}y^0 \\
+&= \frac{0!}{0!(0-0)!} x^0 y^0 \\
+&= \frac{1}{(1)(1)}(1)(1) \\
+&= 1
+\end{align}
+Evaluating the left hand side of the identity at $n=0$ gives us
+\begin{align}
+(x+y)^0 = 1
+\end{align}
+Comparing the left hand side to the right hand side we have
+\begin{align}
+(x+y)^0 &= \sum^0_0\binom{0}{k}x^{1-k}y^k \\
+1 &= 1
+\end{align}
+ So the base case is true; $P(1)$. \\ \\
+\textit{Inductive step: }  \\
+Fix an arbitrary $m \ge 0$ and assume the inductive hypothesis $P(m)$ holds true. That is, assume $(x+y)^m = \sum^m_{k=0}\binom{m}{k}x^{m-k}y^k$. We want to deduce $P(m+1)$, namely that $(x+y)^{m+1} = \sum^{m+1}_{k=0}\binom{m+1}{k}x^{(m+1)-k}y^k$. Starting with the right hand side of $P(m+1)$ we have the expression
+$$\sum^{m+1}_{k=0}\binom{m+1}{k}x^{(m+1)-k}y^k$$
+Then by index shifting the summation we get
+\begin{align}
+\sum^{m}_{k=0}\binom{m+1}{k}x^{(m+1)-k}y^k &+ \binom{m+1}{m+1}x^{(m+1)-(m+1)}y^{m+1} \\
+&= \left(\sum^{m}_{k=0}\binom{m+1}{k}x^{m+1-k}y^k\right) + y^{m+1} \\
+&= \left(\sum^{m}_{k=1}\binom{m+1}{k}x^{m+1-k}y^k\right) + y^{m+1} + \binom{m+1}{0}x^{m+1}y^{0} \\
+&= \left(\sum^{m}_{k=1}\binom{m+1}{k}x^{m+1-k}y^k\right) + \underbrace{y^{m+1}}_{k=m+1\text{ term}} + \underbrace{x^{m+1}}_{k=0 \text{ term}}
+\end{align}
+We pause here to prove a quick lemma about Pascal's Identity.
+\begin{lemma}
+Pascal's Identity says that for $1 \le k \le n$,
+$$ \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$$
+Starting with the right hand side, we can derive the left hand side with factorial algebra.
+\begin{align}
+\binom{n-1}{k-1} + \binom{n-1}{k} &= \frac{(n-1)!}{(k-1)!((n-1)-(k-1))!} + \frac{(n-1)!}{k!((n-1)-k)!} \\
+&= \frac{(n-1)!}{(k-1)!(n-k)!} + \frac{(n-1)!}{k!(n-1-k)!} \\
+\end{align}
+By the product definiton of factorial we have that $k! = k(k-1)!$ and $(n-k)! = (n-k)(n-k-1)!$ by peeling off the top term from each product. Then multiply the right fraction by $\frac{(n-k)}{(n-k)}$ and the left fraction by $\frac{k}{k}$.
+\begin{align}
+\frac{k}{k}\left(\frac{(n-1)!}{(k-1)!(n-k)!}\right)& + \frac{(n-k)}{(n-k)}\left(\frac{(n-1)!}{k!(n-1-k)!} \right) \\ 
+&=\frac{k(n-1)!}{k(k-1)!(n-k)!} + \frac{(n-k)(n-1)!}{k!(n-k)(n-1-k)!} \\
+&= \frac{k(n-1)! + (n-k)(n-1)!}{k!(n-k)!} \\
+&= \frac{(n-1)!(k + (n-k))}{k!(n-k)!} \\
+&= \frac{n(n-1)!}{k!(n-k)!} \\
+&= \frac{n!}{k!(n-k)!} \\
+&= \binom{n}{k}
+\end{align}
+\end{lemma}
+Now we resume our main proof. Making the subsitution $n = m+1$, Pascal's Identity gives
+$$\binom{m+1}{k} = \binom{m}{k-1} + \binom{m}{k}$$
+Rewriting the most recent expression from the main proof with this identity, we get
+\begin{align}
+\Bigg(\sum^{m}_{k=1}\Bigg(\binom{m}{k-1} + \binom{m}{k}\Bigg) x^{m+1-k}y^k\Bigg) +y^{m+1}+ x^{m+1} \\
+= \left( \sum^m_{k=1} \binom{m}{k-1}x^{m+1-k}y^k + \binom{m}{k}x^{m+1-k}y^k\right)  + y^{m+1} + x^{m+1} \\
+= x\sum^m_{k=1}\binom{m}{k-1}x^{m-k}y^k + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1} \\
+= x\sum^m_{k=1}\binom{m}{k-1}x^{m-k}y^k + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1}
+\end{align}
+For the first sum in the final expression, let$ j = k-1$ such that $k= j+1$. Then when $k=1$, $j=0$ and when $k=m$, $j=m-1$.
+\begin{align}
+x\sum^{m-1}_{j=0}\binom{m}{(j+1)-1}x^{m-(j+1)}y^{j+1} + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1} \\
+=x\sum^{m-1}_{j=0}\binom{m}{j}x^{m-j-1}y^{j+1} + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1} \\
+=x\left(\left( \sum^{m-1}_{j=1}\binom{m}{j}x^{m-j-1}y^{j+1}\right) + x^{m-1} + y\right) + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1} \\
+=x\left(\left( \sum^{m}_{j=1}\binom{m}{j}x^{m-j-1}y^{j+1}\right) + x^{m-1}y - (x^{-1}y^{m+1})\right) + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1} \\
+=\Bigg(\left(\frac{x}{x}\right) \left(y\right)\left(\sum^m_{j=1}\binom{m}{j}x^{m-j}y^j\right)\Bigg) + \left(x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k\right) + \left(x^{m-1} y-(x^{-1}y^{m+1})\right)  \\
+=y\left(\sum^m_{j=1}\binom{m}{j}x^{m-j}y^j\right) + x\left(\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k\right) + (x^{m-1}y - x^{-1}y^{m+1})
+\end{align}
+
+Invoking the inductive hypothesis yields
+\begin{align}
+y(x+y)^m + x(x+y)^m +  (x^{m-1}y - x^{-1}y^{m+1}) \\
+(x+y)^{m+1} + 
+\end{align}
+
+
+\end{proof}
 
 
 % Method 2
