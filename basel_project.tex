@@ -2,7 +2,6 @@
 \usepackage{etoolbox}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{microtype}
-\usepackage{tikz}
 \usepackage{booktabs}
 \usepackage[letterpaper,margin=1.15in]{geometry}
 \usepackage{xcolor}
@@ -191,28 +190,64 @@ Rewriting the most recent expression from the main proof with this identity, we 
 \begin{align}
 \Bigg(\sum^{m}_{k=1}\Bigg(\binom{m}{k-1} + \binom{m}{k}\Bigg) x^{m+1-k}y^k\Bigg) +y^{m+1}+ x^{m+1} \\
 = \left( \sum^m_{k=1} \binom{m}{k-1}x^{m+1-k}y^k + \binom{m}{k}x^{m+1-k}y^k\right)  + y^{m+1} + x^{m+1} \\
-= x\sum^m_{k=1}\binom{m}{k-1}x^{m-k}y^k + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1} \\
-= x\sum^m_{k=1}\binom{m}{k-1}x^{m-k}y^k + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1}
+= x\sum^m_{k=1}\binom{m}{k-1}x^{m-k}y^k + x\left(\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k\right) + y^{m+1} + x^{m+1} \\
+= x\sum^m_{k=1}\binom{m}{k-1}x^{m-k}y^k + x\left(\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k \right)+ y^{m+1} + x^{m+1}
 \end{align}
-For the first sum in the final expression, let$ j = k-1$ such that $k= j+1$. Then when $k=1$, $j=0$ and when $k=m$, $j=m-1$.
+For the first sum in the final expression, let $j = k-1$ such that $k= j+1$. Then when $k=1$, $j=0$ and when $k=m$, $j=m-1$.
 \begin{align}
-x\sum^{m-1}_{j=0}\binom{m}{(j+1)-1}x^{m-(j+1)}y^{j+1} + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1} \\
-=x\sum^{m-1}_{j=0}\binom{m}{j}x^{m-j-1}y^{j+1} + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1} \\
-=x\left(\left( \sum^{m-1}_{j=1}\binom{m}{j}x^{m-j-1}y^{j+1}\right) + x^{m-1} + y\right) + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1} \\
-=x\left(\left( \sum^{m}_{j=1}\binom{m}{j}x^{m-j-1}y^{j+1}\right) + x^{m-1}y - (x^{-1}y^{m+1})\right) + x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k + y^{m+1} + x^{m+1} \\
-=\Bigg(\left(\frac{x}{x}\right) \left(y\right)\left(\sum^m_{j=1}\binom{m}{j}x^{m-j}y^j\right)\Bigg) + \left(x\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k\right) + \left(x^{m-1} y-(x^{-1}y^{m+1})\right)  \\
-=y\left(\sum^m_{j=1}\binom{m}{j}x^{m-j}y^j\right) + x\left(\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k\right) + (x^{m-1}y - x^{-1}y^{m+1})
+x\sum^{m-1}_{j=0}\binom{m}{(j+1)-1}x^{m-(j+1)}y^{j+1} + x\left(\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k\right) + y^{m+1} + x^{m+1} \\
+=x\sum^{m-1}_{j=0}\binom{m}{j}x^{m-j-1}y^{j+1} + x\left(\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k\right) + y^{m+1} + x^{m+1} \\
+=x\left(\left( \sum^{m-1}_{j=1}\binom{m}{j}x^{m-j-1}y^{j+1}\right) + x^{m-1} y\right) + x\left(\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k\right) + y^{m+1} + x^{m+1} \\
+=\sum^{m-1}_{j=1} \binom{m}{j} x^{m-j}y^{j+1} + x^my + x\left(\sum^m_{k=1}\binom{m}{k}x^{m-k}y^k\right) + y^{m+1} + x^{m+1} \\
+=\sum^{m-1}_{j=1} \binom{m}{j} x^{m-j}y^{j+1} + x^my + x\left(\sum^{m-1}_{k=1}\binom{m}{k}x^{m-k}y^k\right)+xy^m+y^{m+1}+x^{m+1} \\
+=y\sum^{m-1}_{j=1} \binom{m}{j} x^{m-j}y^{j} + x^my + x\left(\sum^{m-1}_{k=1}\binom{m}{k}x^{m-k}y^k\right)+xy^m+y^{m+1}+x^{m+1} \\
+=\left(y\sum^{m-1}_{j=1} \binom{m}{j} x^{m-j}y^{j}\right) + x^my + y^{m+1} + x\left(\sum^{m-1}_{k=1}\binom{m}{k}x^{m-k}y^k\right)+xy^m+x^{m+1}
 \end{align}
-
+Notice that the standalone terms $x^{m+1}$ and $y^{m+1}$, and $xy^m$ and $x^my$ are precisely the $0$-th and $m$-th terms respectively of each equivalent sum. So, absorbing these back into the sum leaves
+\begin{align}
+y\sum^m_{j=1} \binom{m}{j}x^{m-j}y^j + x\sum^{m}_{k=1}\binom{m}{k}x^{m-k}y^k
+\end{align}
 Invoking the inductive hypothesis yields
 \begin{align}
-y(x+y)^m + x(x+y)^m +  (x^{m-1}y - x^{-1}y^{m+1}) \\
-(x+y)^{m+1} + 
+y(x+y)^m + x(x+y)^m &= (x+y)^m(x+y) \\
+&=(x+y)^{m+1}
 \end{align}
-
+This is precisely the statement $P(m+1)$. So, by the Principle of Mathematical Induction, we have that $\forall n \in \mathbb{N}$, $P(m)$ is true. That is, the binomial theorem holds for all $n \in \mathbb{N}$.
 
 \end{proof}
 
+\subsection{Applying the binomial theorem to section 2.5}
+We want to show that
+\begin{align}
+\frac{\sin\left[(2n+1)x\right]}{\sin^{2n+1}x} = \sum^n_{k=0}\binom{2n+1}{2k+1}(-1)^k(\cot^2x)^{n-k}
+\end{align}
+using the binomial theorem and the identity derived in section 2.5
+$$(\cos x+ i\sin x)^n = \cos(nx) + i\sin(nx)$$
+We can rewrite the left hand side using the binomial theorem as
+\begin{align}
+\sum^n_{k=0}\binom{n}{k}\cos(x)^{n-k}(i\sin(x))^{k} = \cos(nx) + i\sin(nx)
+\end{align}
+Let $n = 2n' + 1$. So
+\begin{align}
+\sum^{2n'+1}_{k=0}\binom{2n'+1}{k}\cos(x)^{2n'+1-k}(i\sin(x))^{k} = \cos((2n'+1)x) + i\sin[(2n'+1)x]
+\end{align}
+Dividing by $\sin^nx$ is equivalent to divding by $\sin^{2n'+1}x$.
+\begin{align}
+\frac{1}{\sin^{2n'+1}}\sum^{2n'+1}_{k=0}\binom{2n'+1}{k}\cos(x)^{2n'+1-k}(i\sin(x))^{k} = \frac{\cos[(2n'+1)x]}{\sin^{2n'+1}} + i\frac{\sin[(2n'+1)x]}{\sin^{2n'+1}}
+\end{align}
+We can split the single sum into two different sums that handle the even and odd terms separately.
+\begin{align}
+\frac{1}{\sin^{2n'+1}}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'+1-2k-1}(i\sin(x))^{2k+1})+  \sum^{n'}_{k=0} \binom{2n'+1}{2k}\cos(x)^{2n'+1-2k}(i\sin(x))^{2k}\right]\\
+\frac{1}{\sin^{2n'+1}}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'-2k}(i\sin(x))^{2k+1})+  \sum^{n'}_{k=0} \binom{2n'+1}{2k}\cos(x)^{2n'-2k+1}(i\sin(x))^{2k}\right]
+\end{align}
+As these sums have the same bounds, we can merge them into one sum
+\begin{align}
+\frac{1}{\sin^{2n'+1}}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'-2k}(i\sin(x))^{2k+1}) +\binom{2n'+1}{2k}\cos(x)^{2n'-2k+1}(i\sin(x))^{2k}\right]
+\end{align}
+As the entire summand is imaginary, we can compare imaginary parts to equate the sum to the imaginary term in the right hand side.
+\begin{align}
+\frac{1}{\sin^{2n'+1}}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'-2k}(i\sin(x))^{2k+1}) +\binom{2n'+1}{2k}\cos(x)^{2n'-2k+1}(i\sin(x))^{2k}\right]
+\end{align}
 
 % Method 2
 \section{Method 2: }
