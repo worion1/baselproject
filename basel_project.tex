@@ -233,22 +233,50 @@ Let $n = 2n' + 1$. So
 \end{align}
 Dividing by $\sin^nx$ is equivalent to divding by $\sin^{2n'+1}x$.
 \begin{align}
-\frac{1}{\sin^{2n'+1}}\sum^{2n'+1}_{k=0}\binom{2n'+1}{k}\cos(x)^{2n'+1-k}(i\sin(x))^{k} = \frac{\cos[(2n'+1)x]}{\sin^{2n'+1}} + i\frac{\sin[(2n'+1)x]}{\sin^{2n'+1}}
+\frac{1}{\sin^{2n'+1}x}\sum^{2n'+1}_{k=0}\binom{2n'+1}{k}\cos(x)^{2n'+1-k}(i\sin(x))^{k} = \frac{\cos[(2n'+1)x]}{\sin^{2n'+1}x} + i\frac{\sin[(2n'+1)x]}{\sin^{2n'+1}x}
 \end{align}
 We can split the single sum into two different sums that handle the even and odd terms separately.
 \begin{align}
-\frac{1}{\sin^{2n'+1}}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'+1-2k-1}(i\sin(x))^{2k+1})+  \sum^{n'}_{k=0} \binom{2n'+1}{2k}\cos(x)^{2n'+1-2k}(i\sin(x))^{2k}\right]\\
-\frac{1}{\sin^{2n'+1}}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'-2k}(i\sin(x))^{2k+1})+  \sum^{n'}_{k=0} \binom{2n'+1}{2k}\cos(x)^{2n'-2k+1}(i\sin(x))^{2k}\right]
+\frac{1}{\sin^{2n'+1}x}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'+1-2k-1}(i\sin(x))^{2k+1})+  \sum^{n'}_{k=0} \binom{2n'+1}{2k}\cos(x)^{2n'+1-2k}(i\sin(x))^{2k}\right]\\
+\frac{1}{\sin^{2n'+1}x}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'-2k}(i\sin(x))^{2k+1})+  \sum^{n'}_{k=0} \binom{2n'+1}{2k}\cos(x)^{2n'-2k+1}(i\sin(x))^{2k}\right] \\
+\frac{1}{\sin^{2n'+1}x}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'-2k}i^{2k+1}\sin(x)^{2k+1}+  \sum^{n'}_{k=0} \binom{2n'+1}{2k}\cos(x)^{2n'-2k+1}i^{2k}\sin(x)^{2k}\right] 
 \end{align}
-As these sums have the same bounds, we can merge them into one sum
+Note that $i^2 = -1$, $i^3 = (-1)i$, $i^4 = 1$, $i^5 = (1)i$, $\implies i^{2k} = (-1)^k, i^{2k+1} = (-1)^ki$. So the odd sum is completely imaginary, while the even sum is completely real. 
 \begin{align}
-\frac{1}{\sin^{2n'+1}}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'-2k}(i\sin(x))^{2k+1}) +\binom{2n'+1}{2k}\cos(x)^{2n'-2k+1}(i\sin(x))^{2k}\right]
+\frac{1}{\sin^{2n'+1}x}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'-2k}(-1)^k i \sin(x)^{2k+1}+  \sum^{n'}_{k=0} \binom{2n'+1}{2k}\cos(x)^{2n'-2k+1}(-1)^k\sin(x)^{2k}\right] 
 \end{align}
-As the entire summand is imaginary, we can compare imaginary parts to equate the sum to the imaginary term in the right hand side.
+Then by equating the imaginary part of this expression with the imaginary part of the right hand side of the equation in line 47 we get that
 \begin{align}
-\frac{1}{\sin^{2n'+1}}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'-2k}(i\sin(x))^{2k+1}) +\binom{2n'+1}{2k}\cos(x)^{2n'-2k+1}(i\sin(x))^{2k}\right]
+\frac{1}{\sin^{2n'+1}x}\left [ \sum^{n'}_{k=0} \binom{2n'+1}{2k+1}\cos(x)^{2n'-2k}(-1)^k \sin(x)^{2k+1}\right] = \frac{\sin[(2n'+1)x]}{\sin^{2n'+1}x} \\
+\sum^{n'}_{k=0} \binom{2n'+1}{2k+1}(-1)^k \frac{\cos(x)^{2n'-2k}\sin(x)^{2k+1}}{\sin^{2n'+1}x}  = \frac{\sin[(2n'+1)x]}{\sin^{2n'+1}x} \\
+\sum^{n'}_{k=0} \binom{2n'+1}{2k+1}(-1)^k \frac{\cos(x)^{2n'-2k}}{\sin^{2n'+1-(2k+1)}x}  = \frac{\sin[(2n'+1)x]}{\sin^{2n'+1}x} \\
+\sum^{n'}_{k=0} \binom{2n'+1}{2k+1}(-1)^k \frac{\cos(x)^{2n'-2k}}{\sin^{2n'-2k}x}  = \frac{\sin[(2n'+1)x]}{\sin^{2n'+1}x} \\
+\sum^{n'}_{k=0} \binom{2n'+1}{2k+1}(-1)^k \left(\frac{\cos^{n'-k}x}{\sin^{n'-k}x}\right)^2  = \frac{\sin[(2n'+1)x]}{\sin^{2n'+1}x} \\
+\sum^{n'}_{k=0} \binom{2n'+1}{2k+1}(-1)^k \left(\cot^{n-k} x\right)^2  = \frac{\sin[(2n'+1)x]}{\sin^{2n'+1}x} \\
+\sum^{n'}_{k=0} \binom{2n'+1}{2k+1}(-1)^k \left(\cot^2 x\right)^{n-k}  = \frac{\sin[(2n'+1)x]}{\sin^{2n'+1}x} 
 \end{align}
+Now let $n' = n$ and by symmetry, we obtain the identity that we wanted to show.
+$$\frac{\sin\left[(2n+1)x\right]}{\sin^{2n+1}x} = \sum^n_{k=0}\binom{2n+1}{2k+1}(-1)^k(\cot^2x)^{n-k}$$
 
+\subsection{}
+Fix $x=x_i$ such that we have the identity
+$$\frac{\sin\left[(2n+1)x_i\right]}{\sin^{2n+1}x_i} = \sum^n_{k=0}\binom{2n+1}{2k+1}(-1)^k(\cot^2x_i)^{n-k}$$
+We obtain the possible values of $x_i$ that make the numerator zero and the denomintor nonzero by setting each term to zero.
+\begin{align}
+\sin[(2n+1)x_i] &= 0 \\
+(2n+1)x_i &=  i\pi \ \text{ for } i = 0,1,2, \ldots \\
+x_i &= \frac{i\pi}{2n+1}
+\end{align}
+Thus, $x_i$ is zero when $i$ is zero. For the denominator term, applying the zero product property yields
+\begin{align}
+\sin^{2n+1}x_i &= 0 \\
+x_i &= j\pi \ \text{ for } i = 0,1,2 \ldots 
+\end{align}
+Restrict $i$ to $1 \le i \le n$. It follows that $0 < i < 2n+1$ and $0 < \frac{i}{2n+1} < 1$. Multiplying through by $\pi$ yields $0 < \frac{i\pi}{2n+1} < \pi$, which is $0 < x_i < \pi$. On this interval, $\sin x > 0$. Substituting $x_i$ into the left hand side of the identity gives
+\begin{align}
+\frac{\sin\left[(2n+1)\left(\frac{i\pi}{2n+1}\right)\right]}{\sin^{2n+1}\left(\frac{i\pi}{2n+1}\right)} = \sum^n_{k=0}\binom{2n+1}{2k+1}(-1)^k(\cot^2x_i)^{n-k} \\
+\frac{\sin\left[i\pi\right]}{\sin^{2n+1}\left(\frac{i\pi}{2n+1}\right)} = \sum^n_{k=0}\binom{2n+1}{2k+1}(-1)^k(\cot^2x_i)^{n-k}
+\end{align}
 % Method 2
 \section{Method 2: }
 % 
